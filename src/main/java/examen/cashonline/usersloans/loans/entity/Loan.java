@@ -1,10 +1,11 @@
-package examen.cashonline.usersloans.subject;
+package examen.cashonline.usersloans.loans.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import examen.cashonline.usersloans.teacher.Usuario;
+import examen.cashonline.usersloans.users.entity.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,37 +16,37 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Prestamo {
+public class Loan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    private String name;
+    private Double total;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    @JsonProperty("userId")
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setTotal(Double total) {
+        this.total = total;
     }
-
 }

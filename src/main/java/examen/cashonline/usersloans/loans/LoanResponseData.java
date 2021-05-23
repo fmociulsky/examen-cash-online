@@ -1,7 +1,7 @@
-package examen.cashonline.usersloans.model;
+package examen.cashonline.usersloans.loans;
 
-import examen.cashonline.usersloans.entity.Loan;
-import org.springframework.data.domain.Page;
+import examen.cashonline.usersloans.model.PageDetail;
+import examen.cashonline.usersloans.loans.entity.Loan;
 
 import java.util.List;
 

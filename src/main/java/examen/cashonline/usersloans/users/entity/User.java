@@ -1,45 +1,30 @@
-package examen.cashonline.usersloans.entity;
+package examen.cashonline.usersloans.users.entity;
 
-import lombok.Data;
+import examen.cashonline.usersloans.loans.entity.Loan;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.Set;
 
-@Data
 @Entity
-@Table
-public class User implements Serializable {
-    private static final long serialVersionUID = 475699149794968564L;
+public class User {
+
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String email;
     private String firstName;
     private String lastName;
+
     @OneToMany(mappedBy = "user")
     private Set<Loan> loans;
 
-    public User() {
-    }
 
-    public User(String email, String firstName, String lastName, Set<Loan> loans) {
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.loans = loans;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -67,7 +52,7 @@ public class User implements Serializable {
     }
 
     public Set<Loan> getLoans() {
-        return loans;
+        return this.loans;
     }
 
     public void setLoans(Set<Loan> loans) {
