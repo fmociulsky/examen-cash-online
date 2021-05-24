@@ -1,5 +1,7 @@
 package examen.cashonline.usersloans.users.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import examen.cashonline.usersloans.loans.entity.Loan;
 
 import javax.persistence.Entity;
@@ -7,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = 7208100789970373367L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +26,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Loan> loans;
 
+    public User() {
+    }
 
     public Long getId() {
         return id;

@@ -14,14 +14,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Entity
-public class Loan {
+public class Loan implements Serializable {
 
+    private static final long serialVersionUID = 3647272316223417299L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private Double total;
+
+    public Loan() {
+    }
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
