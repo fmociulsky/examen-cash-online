@@ -1,0 +1,220 @@
+swagger: "2.0"
+info:
+  description: "Api para manejo de Usuarios y Prestamos"
+  version: "1.0.0"
+  title: "Usuarios y Prestamos"
+  contact:
+    email: "fmociulsky@yahoo.com.ar"
+host: "localhost:8080"
+schemes:
+- "https"
+- "http"
+paths:
+  /users:
+    get:
+      tags:
+      - "Usuarios"
+      summary: "Consulta de todos los Usuarios"
+      operationId: "getUsers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Detalle de los Usuarios"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+    post:
+      tags:
+      - "Usuarios"
+      summary: "Creacion de un Usuario"
+      operationId: "createUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Usuario a crear"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Usuario con Id %d creado"
+      
+  /user/{user_id}:
+    get:
+      tags:
+      - "Usuarios"
+      summary: "Consulta del detalle de un usuario y sus prestamos asignados"
+      operationId: "getUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "Id del Usuario"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Detalle de un Usuario"
+          schema:
+              $ref: "#/definitions/User"
+        "404":
+          description: "Usuario %d no encontrado"
+    delete:
+      tags:
+      - "Usuarios"
+      summary: "Elimina un usuario y sus prestamos asignados"
+      operationId: "deleteUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "Id del Usuario"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "Detalle de un Usuario"
+          schema:
+              $ref: "#/definitions/User"
+        "404":
+          description: "Usuario %d no encontrado"
+          
+          
+  /loans:
+    post:
+      tags:
+      - "Prestamos"
+      summary: "Creacion de un Prestamo"
+      operationId: "createLoan"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        description: "Prestamo a crear"
+        required: true
+        schema:
+          $ref: "#/definitions/Loan"
+      responses:
+        "200":
+          description: "Prestamo con Id %d creado"
+    get:
+      tags:
+      - "Prestamos"
+      summary: "Consulta de prestamos paginado"
+      operationId: "getLoans"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "user_id"
+        in: "query"
+        description: "Usuario del prestamo"
+        required: false
+        type: integer
+      - name: "page"
+        in: "query"
+        description: "numero de pagina"
+        required: true
+        type: integer
+      - name: "size"
+        in: "query"
+        description: "cantidad de prestamos por pagina"
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "Detalle de los Prestamos paginados"
+          schema:
+              $ref: "#/definitions/LoanResponseData"
+        "404":
+          description: "Prestamos no encontrados"
+          
+  /loans/{loan_id}/user/{user_id}:
+    put:
+      tags:
+        - "Prestamos"
+      summary: "Asignacion de Usuario a Prestamo"
+      operationId: "addLoanToUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "loan_id"
+        in: "path"
+        description: "Id del Prestamo"
+        required: true
+        type: integer
+      - name: "user_id"
+        in: "path"
+        description: "Id del Usuario"
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "Prestamo %d asignado al usuario %d"
+        "404":
+          description: "Usuario %d o Prestamo %d no encontrad"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      email:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      loans:
+        type: array
+        items:
+          $ref: "#/definitions/Loan"
+  Loan:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      total:
+        type: "number"
+      userId:
+        type: "integer"
+  LoanResponseData:
+    type: "object"
+    properties:
+      items:
+        type: array
+        items:
+          $ref: "#/definitions/Loan"
+      paging:
+        type: object
+        $ref: "#/definitions/PageDetail"
+  PageDetail:
+    type: "object"
+    properties:
+      page:
+        type: integer
+      size:
+        type: integer
+        
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
