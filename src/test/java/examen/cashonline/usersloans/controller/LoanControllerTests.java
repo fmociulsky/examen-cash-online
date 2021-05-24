@@ -18,10 +18,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 import static examen.cashonline.usersloans.UserLoanDataFixture.LOAN_1;
 import static examen.cashonline.usersloans.UserLoanDataFixture.USER_1;

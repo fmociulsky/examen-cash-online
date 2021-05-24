@@ -1,20 +1,31 @@
 
 API de Usuarios y Prestamos
 
+Requisitos para correr la aplicacion:
+- Instalado Java 1.8
+- Base de Datos MySQL
+
 
 Instrucciones de uso:
 
-1- Ejecutar la clase UsersLoansApplication. 
-   Al iniciar la aplicacion, la misma se encontrara sin ningun usuario o prestamos creados. Se debera usar la API de creacion de usuarios y de creacion de prestamos.
+1- Abrir el proyecto
+2- Se debe modificar el archivo application.properties en la ubicacion src/main/java/resources. Se debe agregar la url de la base de datos MySQL.
+
+3- Ejecutar la clase UsersLoansApplication. 
+   Al iniciar la aplicacion, la misma se encontrara sin ningun usuario o prestamos creados. 
+
+4- Se debe ejecutar el script de carga de datos en el archivo data.sql
+
+5-   Es posible usar la API de creacion de usuarios y de creacion de prestamos.
 
 
-2- Api de Usuarios:
+6- Api de Usuarios:
 	- Creacion de Usuario: Permite crear un Usuario con sus datos, asignandole un id autogenerado.
 	- Consulta de Usuario: Permite consultar el detalle de un usuario y sus prestamos asignados.
 	- Consulta de Usuarios: Permite consultar el detalle de todos los usuarios y sus prestamos asignados.
 	- Eliminacion de Usuarios: Permite eliminar un usuario y sus prestamos asignados.
 
-3- Api de Prestamos:
+7- Api de Prestamos:
 	- Creacion de Prestamo: Permite crear un Prestamo con sus datos, asignandole un id autogenerado.
 	- Asignacion de Prestamo: Permite relacionar un Prestamo con un Usuario.
 	- Consulta de Prestamos: Permite consultar los datos de un Prestamo juntos con el usuario relacionado. Los resultados son enviados en paginas con el detalle del nro de pagina y la cantidad por pagina.
